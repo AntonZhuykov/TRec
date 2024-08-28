@@ -1,0 +1,12 @@
+<svg id="Однократный_запуск" data-name="Однократный запуск" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect width="48" height="48" fill="none"/>
+  <g>
+    <path d="M187.513,95a1.057,1.057,0,0,1,0,2l-34.906,20.155c-.953.55-1.732.1-1.732-1V75.845c0-1.1.779-1.55,1.732-1Z" transform="translate(-144 -72)" fill="#eccad0"/>
+    <path d="M187.513,95a1.057,1.057,0,0,1,0,2l-34.906,20.155c-.953.55-1.732.1-1.732-1V75.845c0-1.1.779-1.55,1.732-1Z" transform="translate(-144 -72)" fill="none" stroke="#e30b17" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+  <circle cx="27.194" cy="32.623" r="12.625" fill="#f6f5f4" stroke="#77767b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <g>
+    <line x1="27.703" y1="24.097" x2="27.703" y2="41.15" fill="none" stroke="#e30b17" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <line x1="27.703" y1="24.097" x2="21.832" y2="29.968" fill="none" stroke="#e30b17" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+  </g>
+</svg>
