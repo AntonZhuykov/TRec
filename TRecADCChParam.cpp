@@ -35,6 +35,15 @@ CTRecADCChParam& CTRecADCChParam::operator=(const CTRecADCChParam& Obj)
 }
 
 
+void CTRecADCChParam::k1k2k3_set(const double& k1, const double& k2, const double& k3)
+{
+    m_k1 = k1;
+    m_k2 = k2;
+    m_k3 = k3;
+    ratio_recalc();
+}
+
+
 void CTRecADCChParam::ratio_recalc()
 {
     m_ratio = m_k1 * m_k2 * m_k3;

@@ -55,15 +55,19 @@ OBJECTS_DIR   = ./
 SOURCES       = ../../TRecADCChParam.cpp \
 		../../TRecADCParam.cpp \
 		../../TRecFolderSelector.cpp \
+		../../TRecMeasLoopParamDlg.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp qrc_qmake_qmake_qm_files.cpp \
+		moc_TRecMeasLoopParamDlg.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = TRecADCChParam.o \
 		TRecADCParam.o \
 		TRecFolderSelector.o \
+		TRecMeasLoopParamDlg.o \
 		main.o \
 		mainwindow.o \
 		qrc_qmake_qmake_qm_files.o \
+		moc_TRecMeasLoopParamDlg.o \
 		moc_mainwindow.o
 DIST          = ../../Res/StartButtonIcon.svg \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
@@ -135,9 +139,11 @@ DIST          = ../../Res/StartButtonIcon.svg \
 		../../../../TRec.pro ../../TRecADCChParam.h \
 		../../TRecADCParam.h \
 		../../TRecFolderSelector.h \
+		../../TRecMeasLoopParamDlg.h \
 		../../mainwindow.h ../../TRecADCChParam.cpp \
 		../../TRecADCParam.cpp \
 		../../TRecFolderSelector.cpp \
+		../../TRecMeasLoopParamDlg.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp
 QMAKE_TARGET  = TRec
@@ -148,7 +154,7 @@ TARGET        = TRec
 first: all
 ####### Build rules
 
-TRec: ui_mainwindow.h $(OBJECTS)  
+TRec: ui_TRecMeasLoopParamDlg.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../../TRec.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang/qmake.conf /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf \
@@ -311,9 +317,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents ../../TRec_en_US.ts $(DISTDIR)/
 	$(COPY_FILE) --parents qmake_qmake_qm_files.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../TRecADCChParam.h ../../TRecADCParam.h ../../TRecFolderSelector.h ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../TRecADCChParam.cpp ../../TRecADCParam.cpp ../../TRecFolderSelector.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TRecADCChParam.h ../../TRecADCParam.h ../../TRecFolderSelector.h ../../TRecMeasLoopParamDlg.h ../../mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TRecADCChParam.cpp ../../TRecADCParam.cpp ../../TRecFolderSelector.cpp ../../TRecMeasLoopParamDlg.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TRecMeasLoopParamDlg.ui ../../mainwindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents ../../TRec_en_US.ts $(DISTDIR)/
 
 
@@ -358,10 +364,16 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 	clang++ -pipe -g -std=gnu++2a -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
+moc_TRecMeasLoopParamDlg.cpp: ../../TRecMeasLoopParamDlg.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../TRecMeasLoopParamDlg.h -o moc_TRecMeasLoopParamDlg.cpp
+
 moc_mainwindow.cpp: ../../mainwindow.h \
+		../../TRecMeasLoopParamDlg.h \
 		../../TRecADCParam.h \
 		../../TRecADCChParam.h \
 		moc_predefs.h \
@@ -372,9 +384,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_TRecMeasLoopParamDlg.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
+	-$(DEL_FILE) ui_TRecMeasLoopParamDlg.h ui_mainwindow.h
+ui_TRecMeasLoopParamDlg.h: ../../TRecMeasLoopParamDlg.ui \
+		/usr/lib/qt6/libexec/uic
+	/usr/lib/qt6/libexec/uic ../../TRecMeasLoopParamDlg.ui -o ui_TRecMeasLoopParamDlg.h
+
 ui_mainwindow.h: ../../mainwindow.ui \
 		/usr/lib/qt6/libexec/uic
 	/usr/lib/qt6/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
@@ -399,12 +415,18 @@ TRecADCParam.o: ../../TRecADCParam.cpp ../../TRecADCParam.h \
 TRecFolderSelector.o: ../../TRecFolderSelector.cpp ../../TRecFolderSelector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecFolderSelector.o ../../TRecFolderSelector.cpp
 
+TRecMeasLoopParamDlg.o: ../../TRecMeasLoopParamDlg.cpp ../../TRecMeasLoopParamDlg.h \
+		ui_TRecMeasLoopParamDlg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecMeasLoopParamDlg.o ../../TRecMeasLoopParamDlg.cpp
+
 main.o: ../../main.cpp ../../mainwindow.h \
+		../../TRecMeasLoopParamDlg.h \
 		../../TRecADCParam.h \
 		../../TRecADCChParam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
+		../../TRecMeasLoopParamDlg.h \
 		../../TRecADCParam.h \
 		../../TRecADCChParam.h \
 		ui_mainwindow.h \
@@ -413,6 +435,9 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 
 qrc_qmake_qmake_qm_files.o: qrc_qmake_qmake_qm_files.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qmake_qmake_qm_files.o qrc_qmake_qmake_qm_files.cpp
+
+moc_TRecMeasLoopParamDlg.o: moc_TRecMeasLoopParamDlg.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TRecMeasLoopParamDlg.o moc_TRecMeasLoopParamDlg.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

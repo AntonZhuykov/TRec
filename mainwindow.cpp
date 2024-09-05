@@ -39,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Grid с кнопками внизу окна
     ui->horizontalLayout->addWidget(ui->CancelButton);
     ui->horizontalLayout->addWidget(ui->OKButton);
-    ui->horizontalLayout->insertStretch(1, 6);
 
     // Grid с элементами задания числа каналов
     ui->CHGrid->addWidget(ui->CHSelectLabel, 0, 0, 1, 4);
@@ -184,10 +183,17 @@ void MainWindow::on_CHSelectSpin_valueChanged(int arg1)
 }
 
 
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Кнопки закрытия окна
 void MainWindow::on_OKButton_clicked()
 {
     exit(0);
 }
+void MainWindow::on_CancelButton_clicked()
+{
+    exit(0);
+}
+
 
 
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -244,4 +250,16 @@ void MainWindow::on_SameChParamCheck_toggled(bool checked)
 {
     // одинакковые параметры всех каналов
 }
+
+
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Кнопка вызова диалога задания коэффициентов
+void MainWindow::on_RatioSetButton_clicked()
+{
+    m_pMeasLoopParamDlg = new CTRecMeasLoopParamDlg(this);
+    m_pMeasLoopParamDlg->setAttribute(Qt::WA_DeleteOnClose);
+    m_pMeasLoopParamDlg->exec();
+}
+
 

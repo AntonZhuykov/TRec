@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "TRecMeasLoopParamDlg.h"
 #include "TRecADCParam.h"
 
 
@@ -18,6 +19,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    // сетеры-гетеры
+    TRecADCParam* pADCParam_get() {return &m_ADCParam;}
 
     // пользовательские функции
     void histSizeMax_set();
@@ -45,9 +49,14 @@ private slots:
 
     void on_SameChParamCheck_toggled(bool checked);
 
+    void on_RatioSetButton_clicked();
+
+    void on_CancelButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     TRecADCParam m_ADCParam;
+    CTRecMeasLoopParamDlg* m_pMeasLoopParamDlg;
 
     // пользовательские переменные
     int histSizeSampleMax;

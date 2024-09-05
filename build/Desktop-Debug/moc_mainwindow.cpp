@@ -26,7 +26,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 namespace {
 struct qt_meta_stringdata_MainWindow_t {
-    uint offsetsAndSizes[34];
+    uint offsetsAndSizes[38];
     char stringdata0[11];
     char stringdata1[39];
     char stringdata2[1];
@@ -44,6 +44,8 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata14[29];
     char stringdata15[28];
     char stringdata16[8];
+    char stringdata17[26];
+    char stringdata18[24];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
@@ -65,7 +67,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(278, 34),  // "on_HistSizeSampleSpin_valueCh..."
         QT_MOC_LITERAL(313, 28),  // "on_manualStartButton_clicked"
         QT_MOC_LITERAL(342, 27),  // "on_SameChParamCheck_toggled"
-        QT_MOC_LITERAL(370, 7)   // "checked"
+        QT_MOC_LITERAL(370, 7),  // "checked"
+        QT_MOC_LITERAL(378, 25),  // "on_RatioSetButton_clicked"
+        QT_MOC_LITERAL(404, 23)   // "on_CancelButton_clicked"
     },
     "MainWindow",
     "on_SampleRateCombo_currentIndexChanged",
@@ -83,7 +87,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "on_HistSizeSampleSpin_valueChanged",
     "on_manualStartButton_clicked",
     "on_SameChParamCheck_toggled",
-    "checked"
+    "checked",
+    "on_RatioSetButton_clicked",
+    "on_CancelButton_clicked"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -94,7 +100,7 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -102,17 +108,19 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   80,    2, 0x08,    1 /* Private */,
-       4,    1,   83,    2, 0x08,    3 /* Private */,
-       6,    1,   86,    2, 0x08,    5 /* Private */,
-       8,    1,   89,    2, 0x08,    7 /* Private */,
-       9,    1,   92,    2, 0x08,    9 /* Private */,
-      10,    0,   95,    2, 0x08,   11 /* Private */,
-      11,    1,   96,    2, 0x08,   12 /* Private */,
-      12,    1,   99,    2, 0x08,   14 /* Private */,
-      13,    1,  102,    2, 0x08,   16 /* Private */,
-      14,    0,  105,    2, 0x08,   18 /* Private */,
-      15,    1,  106,    2, 0x08,   19 /* Private */,
+       1,    1,   92,    2, 0x08,    1 /* Private */,
+       4,    1,   95,    2, 0x08,    3 /* Private */,
+       6,    1,   98,    2, 0x08,    5 /* Private */,
+       8,    1,  101,    2, 0x08,    7 /* Private */,
+       9,    1,  104,    2, 0x08,    9 /* Private */,
+      10,    0,  107,    2, 0x08,   11 /* Private */,
+      11,    1,  108,    2, 0x08,   12 /* Private */,
+      12,    1,  111,    2, 0x08,   14 /* Private */,
+      13,    1,  114,    2, 0x08,   16 /* Private */,
+      14,    0,  117,    2, 0x08,   18 /* Private */,
+      15,    1,  118,    2, 0x08,   19 /* Private */,
+      17,    0,  121,    2, 0x08,   21 /* Private */,
+      18,    0,  122,    2, 0x08,   22 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -126,6 +134,8 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   16,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -169,7 +179,11 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_SameChParamCheck_toggled'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'on_RatioSetButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_CancelButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -191,6 +205,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 8: _t->on_HistSizeSampleSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 9: _t->on_manualStartButton_clicked(); break;
         case 10: _t->on_SameChParamCheck_toggled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 11: _t->on_RatioSetButton_clicked(); break;
+        case 12: _t->on_CancelButton_clicked(); break;
         default: ;
         }
     }
@@ -215,13 +231,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 13)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        _id -= 13;
     }
     return _id;
 }

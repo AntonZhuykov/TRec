@@ -21,9 +21,13 @@ public:
     void k1_set(const double& k1) { m_k1 = k1;}
     void k2_set(const double& k2) { m_k2 = k2;}
     void k3_set(const double& k3) { m_k3 = k3;}
+    void k1k2k3_set(const double&, const double&, const double&);
     void triggerType_set(const EdgeTriggerTypes& type) {m_triggerType = type;}
 
     int ind_get() {return m_ind;}
+    double k1_get() {return m_k1;}
+    double k2_get() {return m_k2;}
+    double k3_get() {return m_k3;}
 
     void ratio_recalc();
 

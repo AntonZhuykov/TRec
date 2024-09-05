@@ -12,6 +12,7 @@ SOURCES += \
     TRecADCChParam.cpp \
     TRecADCParam.cpp \
     TRecFolderSelector.cpp \
+    TRecMeasLoopParamDlg.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -19,9 +20,11 @@ HEADERS += \
     TRecADCChParam.h \
     TRecADCParam.h \
     TRecFolderSelector.h \
+    TRecMeasLoopParamDlg.h \
     mainwindow.h
 
 FORMS += \
+    TRecMeasLoopParamDlg.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
