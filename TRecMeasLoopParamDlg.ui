@@ -56,13 +56,13 @@
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>200</y>
+     <y>170</y>
      <width>621</width>
      <height>71</height>
     </rect>
    </property>
    <property name="title">
-    <string>Передаточные коэффициенты измерительной цепи</string>
+    <string>Коэффициенты деления измерительной цепи</string>
    </property>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
@@ -77,7 +77,7 @@
      <item>
       <widget class="QLabel" name="k1Label">
        <property name="text">
-        <string>k1 = </string>
+        <string>k₁ = </string>
        </property>
       </widget>
      </item>
@@ -87,7 +87,7 @@
      <item>
       <widget class="QLabel" name="k2Label">
        <property name="text">
-        <string>k2 = </string>
+        <string>k₂ = </string>
        </property>
       </widget>
      </item>
@@ -97,7 +97,7 @@
      <item>
       <widget class="QLabel" name="k3Label">
        <property name="text">
-        <string>k3 = </string>
+        <string>k₃ = </string>
        </property>
       </widget>
      </item>
@@ -106,6 +106,50 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QLabel" name="EqCoefBanner">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>265</y>
+     <width>331</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Эквивалентный коэффициент деления:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="EqCoefLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>41</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>k₁₂₃ = </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="EqCoefValue">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>61</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
   </widget>
  </widget>
  <resources/>

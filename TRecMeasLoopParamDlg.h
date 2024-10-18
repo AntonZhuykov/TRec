@@ -23,6 +23,12 @@ private slots:
 
     void on_CancelButton_clicked();
 
+    void on_k1SpinBox_valueChanged(double arg1);
+
+    void on_k2SpinBox_valueChanged(double arg1);
+
+    void on_k3SpinBox_valueChanged(double arg1);
+
 private:
     Ui::CTRecMeasLoopParamDlg *ui;
 };

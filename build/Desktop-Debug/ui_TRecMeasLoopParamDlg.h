@@ -38,6 +38,9 @@ public:
     QDoubleSpinBox *k2SpinBox;
     QLabel *k3Label;
     QDoubleSpinBox *k3SpinBox;
+    QLabel *EqCoefBanner;
+    QLabel *EqCoefLabel;
+    QLabel *EqCoefValue;
 
     void setupUi(QDialog *CTRecMeasLoopParamDlg)
     {
@@ -65,7 +68,7 @@ public:
         SchemeLabel->setGeometry(QRect(9, 20, 615, 140));
         CoefGroupBox = new QGroupBox(CTRecMeasLoopParamDlg);
         CoefGroupBox->setObjectName("CoefGroupBox");
-        CoefGroupBox->setGeometry(QRect(9, 200, 621, 71));
+        CoefGroupBox->setGeometry(QRect(9, 170, 621, 71));
         horizontalLayoutWidget_2 = new QWidget(CoefGroupBox);
         horizontalLayoutWidget_2->setObjectName("horizontalLayoutWidget_2");
         horizontalLayoutWidget_2->setGeometry(QRect(10, 30, 601, 31));
@@ -102,6 +105,18 @@ public:
 
         CoefLayout->addWidget(k3SpinBox);
 
+        EqCoefBanner = new QLabel(CTRecMeasLoopParamDlg);
+        EqCoefBanner->setObjectName("EqCoefBanner");
+        EqCoefBanner->setGeometry(QRect(10, 265, 331, 18));
+        EqCoefLabel = new QLabel(CTRecMeasLoopParamDlg);
+        EqCoefLabel->setObjectName("EqCoefLabel");
+        EqCoefLabel->setGeometry(QRect(10, 290, 41, 18));
+        EqCoefValue = new QLabel(CTRecMeasLoopParamDlg);
+        EqCoefValue->setObjectName("EqCoefValue");
+        EqCoefValue->setGeometry(QRect(50, 290, 61, 20));
+        QFont font;
+        font.setBold(false);
+        EqCoefValue->setFont(font);
 
         retranslateUi(CTRecMeasLoopParamDlg);
 
@@ -114,10 +129,13 @@ public:
         CancelButton->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "PushButton", nullptr));
         OKButton->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "PushButton", nullptr));
         SchemeLabel->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "TextLabel", nullptr));
-        CoefGroupBox->setTitle(QCoreApplication::translate("CTRecMeasLoopParamDlg", "\320\237\320\265\321\200\320\265\320\264\320\260\321\202\320\276\321\207\320\275\321\213\320\265 \320\272\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202\321\213 \320\270\320\267\320\274\320\265\321\200\320\270\321\202\320\265\320\273\321\214\320\275\320\276\320\271 \321\206\320\265\320\277\320\270", nullptr));
-        k1Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k1 = ", nullptr));
-        k2Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k2 = ", nullptr));
-        k3Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k3 = ", nullptr));
+        CoefGroupBox->setTitle(QCoreApplication::translate("CTRecMeasLoopParamDlg", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202\321\213 \320\264\320\265\320\273\320\265\320\275\320\270\321\217 \320\270\320\267\320\274\320\265\321\200\320\270\321\202\320\265\320\273\321\214\320\275\320\276\320\271 \321\206\320\265\320\277\320\270", nullptr));
+        k1Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k\342\202\201 = ", nullptr));
+        k2Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k\342\202\202 = ", nullptr));
+        k3Label->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k\342\202\203 = ", nullptr));
+        EqCoefBanner->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "\320\255\320\272\320\262\320\270\320\262\320\260\320\273\320\265\320\275\321\202\320\275\321\213\320\271 \320\272\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 \320\264\320\265\320\273\320\265\320\275\320\270\321\217:", nullptr));
+        EqCoefLabel->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "k\342\202\201\342\202\202\342\202\203 = ", nullptr));
+        EqCoefValue->setText(QCoreApplication::translate("CTRecMeasLoopParamDlg", "TextLabel", nullptr));
     } // retranslateUi
 
 };

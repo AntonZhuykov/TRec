@@ -1,21 +1,22 @@
 #include "TRecADCParam.h"
-#include <ranges>
 #include <algorithm>
 
-TRecADCParam::TRecADCParam()
+
+CTRecADCParam::CTRecADCParam()
 {
-    m_sampleRate = SampleRateVals[0];
-    m_bufferSize = BufferSizeSampleMin;
+    m_sampleRate = SampleRateVals[2];
+    m_bufferSize = BufferSizeSampleDefault;
     m_histSize = HistSizeSampleMin;
     m_ChNum = CHTotalNum;
+    m_bitness = bitnessDefault;
 }
 
-TRecADCParam::~TRecADCParam()
+CTRecADCParam::~CTRecADCParam()
 {
 
 }
 
-TRecADCParam& TRecADCParam::operator=(const TRecADCParam& Obj)
+CTRecADCParam& CTRecADCParam::operator=(const CTRecADCParam& Obj)
 {
     if(this == &Obj)
         return *this;
@@ -24,12 +25,13 @@ TRecADCParam& TRecADCParam::operator=(const TRecADCParam& Obj)
     m_bufferSize = Obj.m_bufferSize;
     m_histSize = Obj.m_histSize;
     m_ChNum = Obj.m_ChNum;
+    m_bitness = Obj.m_bitness;
 
     return *this;
 }
 
 
-void TRecADCParam::ChNum_set(const int& ChNum)
+void CTRecADCParam::ChNum_set(const int& ChNum)
 {
     if(m_ChNum < ChNum)
     {

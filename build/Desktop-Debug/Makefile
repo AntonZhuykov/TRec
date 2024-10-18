@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = clang
 CXX           = clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++2a -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
-INCPATH       = -I../../../TRec -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang
+INCPATH       = -I../../../TRec -I. -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtNetwork -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang
 QMAKE         = /usr/bin/qmake6
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = TRec1.0.0
 DISTDIR = /home/antonadmin/Projects/TRec/build/Desktop-Debug/.tmp/TRec1.0.0
 LINK          = clang++
 LFLAGS        = -ccc-gcc-name g++ -Wl,-rpath-link,/usr/lib/x86_64-linux-gnu
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt6Widgets.so /usr/lib/x86_64-linux-gnu/libQt6Gui.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Network.so /usr/lib/x86_64-linux-gnu/libQt6Core.so -lpthread -lGLX -lOpenGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,21 +52,31 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../TRecADCChParam.cpp \
+SOURCES       = ../../TRecADC.cpp \
+		../../TRecADCChParam.cpp \
+		../../TRecADCChParamWidgets.cpp \
 		../../TRecADCParam.cpp \
 		../../TRecFolderSelector.cpp \
+		../../TRecIPEditBox.cpp \
 		../../TRecMeasLoopParamDlg.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp qrc_qmake_qmake_qm_files.cpp \
+		moc_TRecADCChParamWidgets.cpp \
+		moc_TRecIPEditBox.cpp \
 		moc_TRecMeasLoopParamDlg.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = TRecADCChParam.o \
+OBJECTS       = TRecADC.o \
+		TRecADCChParam.o \
+		TRecADCChParamWidgets.o \
 		TRecADCParam.o \
 		TRecFolderSelector.o \
+		TRecIPEditBox.o \
 		TRecMeasLoopParamDlg.o \
 		main.o \
 		mainwindow.o \
 		qrc_qmake_qmake_qm_files.o \
+		moc_TRecADCChParamWidgets.o \
+		moc_TRecIPEditBox.o \
 		moc_TRecMeasLoopParamDlg.o \
 		moc_mainwindow.o
 DIST          = ../../Res/StartButtonIcon.svg \
@@ -136,13 +146,19 @@ DIST          = ../../Res/StartButtonIcon.svg \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/lex.prf \
-		../../../../TRec.pro ../../TRecADCChParam.h \
+		../../../../TRec.pro ../../TRecADC.h \
+		../../TRecADCChParam.h \
+		../../TRecADCChParamWidgets.h \
 		../../TRecADCParam.h \
 		../../TRecFolderSelector.h \
+		../../TRecIPEditBox.h \
 		../../TRecMeasLoopParamDlg.h \
-		../../mainwindow.h ../../TRecADCChParam.cpp \
+		../../mainwindow.h ../../TRecADC.cpp \
+		../../TRecADCChParam.cpp \
+		../../TRecADCChParamWidgets.cpp \
 		../../TRecADCParam.cpp \
 		../../TRecFolderSelector.cpp \
+		../../TRecIPEditBox.cpp \
 		../../TRecMeasLoopParamDlg.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp
@@ -227,6 +243,7 @@ Makefile: ../../TRec.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang/qmake
 		qmake_qmake_qm_files.qrc \
 		/usr/lib/x86_64-linux-gnu/libQt6Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt6Gui.prl \
+		/usr/lib/x86_64-linux-gnu/libQt6Network.prl \
 		/usr/lib/x86_64-linux-gnu/libQt6Core.prl
 	$(QMAKE) -o Makefile ../../TRec.pro -spec linux-clang CONFIG+=debug CONFIG+=qml_debug
 /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/spec_pre.prf:
@@ -299,6 +316,7 @@ Makefile: ../../TRec.pro /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang/qmake
 qmake_qmake_qm_files.qrc:
 /usr/lib/x86_64-linux-gnu/libQt6Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt6Gui.prl:
+/usr/lib/x86_64-linux-gnu/libQt6Network.prl:
 /usr/lib/x86_64-linux-gnu/libQt6Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../../TRec.pro -spec linux-clang CONFIG+=debug CONFIG+=qml_debug
@@ -317,8 +335,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents ../../TRec_en_US.ts $(DISTDIR)/
 	$(COPY_FILE) --parents qmake_qmake_qm_files.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../TRecADCChParam.h ../../TRecADCParam.h ../../TRecFolderSelector.h ../../TRecMeasLoopParamDlg.h ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../TRecADCChParam.cpp ../../TRecADCParam.cpp ../../TRecFolderSelector.cpp ../../TRecMeasLoopParamDlg.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TRecADC.h ../../TRecADCChParam.h ../../TRecADCChParamWidgets.h ../../TRecADCParam.h ../../TRecFolderSelector.h ../../TRecIPEditBox.h ../../TRecMeasLoopParamDlg.h ../../mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../TRecADC.cpp ../../TRecADCChParam.cpp ../../TRecADCChParamWidgets.cpp ../../TRecADCParam.cpp ../../TRecFolderSelector.cpp ../../TRecIPEditBox.cpp ../../TRecMeasLoopParamDlg.cpp ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../TRecMeasLoopParamDlg.ui ../../mainwindow.ui $(DISTDIR)/
 	$(COPY_FILE) --parents ../../TRec_en_US.ts $(DISTDIR)/
 
@@ -364,21 +382,35 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 	clang++ -pipe -g -std=gnu++2a -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt6/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_TRecADCChParamWidgets.cpp moc_TRecIPEditBox.cpp moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
-moc_TRecMeasLoopParamDlg.cpp: ../../TRecMeasLoopParamDlg.h \
-		moc_predefs.h \
-		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../TRecMeasLoopParamDlg.h -o moc_TRecMeasLoopParamDlg.cpp
-
-moc_mainwindow.cpp: ../../mainwindow.h \
-		../../TRecMeasLoopParamDlg.h \
-		../../TRecADCParam.h \
+	-$(DEL_FILE) moc_TRecADCChParamWidgets.cpp moc_TRecIPEditBox.cpp moc_TRecMeasLoopParamDlg.cpp moc_mainwindow.cpp
+moc_TRecADCChParamWidgets.cpp: ../../TRecADCChParamWidgets.h \
 		../../TRecADCChParam.h \
 		moc_predefs.h \
 		/usr/lib/qt6/libexec/moc
-	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtNetwork -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../TRecADCChParamWidgets.h -o moc_TRecADCChParamWidgets.cpp
+
+moc_TRecIPEditBox.cpp: ../../TRecIPEditBox.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtNetwork -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../TRecIPEditBox.h -o moc_TRecIPEditBox.cpp
+
+moc_TRecMeasLoopParamDlg.cpp: ../../TRecMeasLoopParamDlg.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtNetwork -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../TRecMeasLoopParamDlg.h -o moc_TRecMeasLoopParamDlg.cpp
+
+moc_mainwindow.cpp: ../../mainwindow.h \
+		../../TRecMeasLoopParamDlg.h \
+		../../TRecADC.h \
+		../../TRecADCParam.h \
+		../../TRecADCChParam.h \
+		../../TRecADCChParamWidgets.h \
+		../../TRecIPEditBox.h \
+		moc_predefs.h \
+		/usr/lib/qt6/libexec/moc
+	/usr/lib/qt6/libexec/moc $(DEFINES) --include /home/antonadmin/Projects/TRec/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-clang -I/home/antonadmin/Projects/TRec -I/usr/include/x86_64-linux-gnu/qt6 -I/usr/include/x86_64-linux-gnu/qt6/QtWidgets -I/usr/include/x86_64-linux-gnu/qt6/QtGui -I/usr/include/x86_64-linux-gnu/qt6/QtNetwork -I/usr/include/x86_64-linux-gnu/qt6/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/llvm-18/lib/clang/18/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -405,8 +437,17 @@ compiler_clean: compiler_lrelease_clean compiler_rcc_clean compiler_moc_predefs_
 
 ####### Compile
 
+TRecADC.o: ../../TRecADC.cpp ../../TRecADC.h \
+		../../TRecADCParam.h \
+		../../TRecADCChParam.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecADC.o ../../TRecADC.cpp
+
 TRecADCChParam.o: ../../TRecADCChParam.cpp ../../TRecADCChParam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecADCChParam.o ../../TRecADCChParam.cpp
+
+TRecADCChParamWidgets.o: ../../TRecADCChParamWidgets.cpp ../../TRecADCChParamWidgets.h \
+		../../TRecADCChParam.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecADCChParamWidgets.o ../../TRecADCChParamWidgets.cpp
 
 TRecADCParam.o: ../../TRecADCParam.cpp ../../TRecADCParam.h \
 		../../TRecADCChParam.h
@@ -415,26 +456,47 @@ TRecADCParam.o: ../../TRecADCParam.cpp ../../TRecADCParam.h \
 TRecFolderSelector.o: ../../TRecFolderSelector.cpp ../../TRecFolderSelector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecFolderSelector.o ../../TRecFolderSelector.cpp
 
+TRecIPEditBox.o: ../../TRecIPEditBox.cpp ../../TRecIPEditBox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecIPEditBox.o ../../TRecIPEditBox.cpp
+
 TRecMeasLoopParamDlg.o: ../../TRecMeasLoopParamDlg.cpp ../../TRecMeasLoopParamDlg.h \
+		../../mainwindow.h \
+		../../TRecADC.h \
+		../../TRecADCParam.h \
+		../../TRecADCChParam.h \
+		../../TRecADCChParamWidgets.h \
+		../../TRecIPEditBox.h \
 		ui_TRecMeasLoopParamDlg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TRecMeasLoopParamDlg.o ../../TRecMeasLoopParamDlg.cpp
 
 main.o: ../../main.cpp ../../mainwindow.h \
 		../../TRecMeasLoopParamDlg.h \
+		../../TRecADC.h \
 		../../TRecADCParam.h \
-		../../TRecADCChParam.h
+		../../TRecADCChParam.h \
+		../../TRecADCChParamWidgets.h \
+		../../TRecIPEditBox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../TRecMeasLoopParamDlg.h \
+		../../TRecADC.h \
 		../../TRecADCParam.h \
 		../../TRecADCChParam.h \
+		../../TRecADCChParamWidgets.h \
+		../../TRecIPEditBox.h \
 		ui_mainwindow.h \
 		../../TRecFolderSelector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 qrc_qmake_qmake_qm_files.o: qrc_qmake_qmake_qm_files.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qmake_qmake_qm_files.o qrc_qmake_qmake_qm_files.cpp
+
+moc_TRecADCChParamWidgets.o: moc_TRecADCChParamWidgets.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TRecADCChParamWidgets.o moc_TRecADCChParamWidgets.cpp
+
+moc_TRecIPEditBox.o: moc_TRecIPEditBox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TRecIPEditBox.o moc_TRecIPEditBox.cpp
 
 moc_TRecMeasLoopParamDlg.o: moc_TRecMeasLoopParamDlg.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TRecMeasLoopParamDlg.o moc_TRecMeasLoopParamDlg.cpp

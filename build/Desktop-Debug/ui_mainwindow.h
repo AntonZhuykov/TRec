@@ -61,10 +61,10 @@ public:
     QGroupBox *HistSizeGroupbox;
     QWidget *gridLayoutWidget_5;
     QGridLayout *HistGrid;
-    QDoubleSpinBox *HistSizeSpin;
-    QLabel *HistSizeSampleUnitLabel;
     QSpinBox *HistSizeSampleSpin;
     QLabel *HistSizeUnitLabel;
+    QLabel *HistSizeSampleUnitLabel;
+    QDoubleSpinBox *HistSizeSpin;
     QSlider *HistSizeSlider;
     QCheckBox *SameChParamCheck;
     QGroupBox *RatioGroupbox;
@@ -72,9 +72,13 @@ public:
     QGridLayout *RatioGrid;
     QLabel *RatioLabel;
     QPushButton *RatioSetButton;
+    QLabel *RatioValue;
     QTabWidget *CHTabWidget;
     QWidget *tab;
     QWidget *tab_2;
+    QGroupBox *IPAddressGroupbox;
+    QWidget *gridLayoutWidget_7;
+    QGridLayout *IPAddressGrid;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -182,7 +186,7 @@ public:
 
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName("gridLayoutWidget");
-        gridLayoutWidget->setGeometry(QRect(20, 130, 321, 31));
+        gridLayoutWidget->setGeometry(QRect(20, 220, 321, 31));
         CHGrid = new QGridLayout(gridLayoutWidget);
         CHGrid->setObjectName("CHGrid");
         CHGrid->setContentsMargins(0, 0, 0, 0);
@@ -198,7 +202,7 @@ public:
 
         gridLayoutWidget_2 = new QWidget(centralwidget);
         gridLayoutWidget_2->setObjectName("gridLayoutWidget_2");
-        gridLayoutWidget_2->setGeometry(QRect(380, 30, 401, 41));
+        gridLayoutWidget_2->setGeometry(QRect(380, 110, 401, 31));
         CommonParamGrid = new QGridLayout(gridLayoutWidget_2);
         CommonParamGrid->setObjectName("CommonParamGrid");
         CommonParamGrid->setContentsMargins(0, 0, 0, 0);
@@ -224,7 +228,7 @@ public:
         manualStartButton->setIconSize(QSize(36, 36));
         gridLayoutWidget_3 = new QWidget(centralwidget);
         gridLayoutWidget_3->setObjectName("gridLayoutWidget_3");
-        gridLayoutWidget_3->setGeometry(QRect(380, 340, 401, 51));
+        gridLayoutWidget_3->setGeometry(QRect(380, 360, 401, 51));
         SaveFolderGrid = new QGridLayout(gridLayoutWidget_3);
         SaveFolderGrid->setObjectName("SaveFolderGrid");
         SaveFolderGrid->setContentsMargins(0, 0, 0, 0);
@@ -235,13 +239,13 @@ public:
 
         BufferSizeGroupbox = new QGroupBox(centralwidget);
         BufferSizeGroupbox->setObjectName("BufferSizeGroupbox");
-        BufferSizeGroupbox->setGeometry(QRect(380, 100, 401, 101));
+        BufferSizeGroupbox->setGeometry(QRect(380, 150, 401, 92));
         gridLayoutWidget_4 = new QWidget(BufferSizeGroupbox);
         gridLayoutWidget_4->setObjectName("gridLayoutWidget_4");
-        gridLayoutWidget_4->setGeometry(QRect(10, 30, 381, 71));
+        gridLayoutWidget_4->setGeometry(QRect(10, 20, 381, 71));
         BufferGrid = new QGridLayout(gridLayoutWidget_4);
         BufferGrid->setObjectName("BufferGrid");
-        BufferGrid->setVerticalSpacing(12);
+        BufferGrid->setVerticalSpacing(20);
         BufferGrid->setContentsMargins(0, 0, 0, 0);
         BufferSizeSampleUnitLabel = new QLabel(gridLayoutWidget_4);
         BufferSizeSampleUnitLabel->setObjectName("BufferSizeSampleUnitLabel");
@@ -271,24 +275,15 @@ public:
 
         HistSizeGroupbox = new QGroupBox(centralwidget);
         HistSizeGroupbox->setObjectName("HistSizeGroupbox");
-        HistSizeGroupbox->setGeometry(QRect(379, 210, 401, 101));
+        HistSizeGroupbox->setGeometry(QRect(379, 253, 401, 92));
         gridLayoutWidget_5 = new QWidget(HistSizeGroupbox);
         gridLayoutWidget_5->setObjectName("gridLayoutWidget_5");
-        gridLayoutWidget_5->setGeometry(QRect(10, 30, 381, 71));
+        gridLayoutWidget_5->setGeometry(QRect(10, 23, 381, 71));
         HistGrid = new QGridLayout(gridLayoutWidget_5);
         HistGrid->setObjectName("HistGrid");
-        HistGrid->setVerticalSpacing(12);
+        HistGrid->setHorizontalSpacing(6);
+        HistGrid->setVerticalSpacing(20);
         HistGrid->setContentsMargins(0, 0, 0, 0);
-        HistSizeSpin = new QDoubleSpinBox(gridLayoutWidget_5);
-        HistSizeSpin->setObjectName("HistSizeSpin");
-
-        HistGrid->addWidget(HistSizeSpin, 0, 0, 1, 1);
-
-        HistSizeSampleUnitLabel = new QLabel(gridLayoutWidget_5);
-        HistSizeSampleUnitLabel->setObjectName("HistSizeSampleUnitLabel");
-
-        HistGrid->addWidget(HistSizeSampleUnitLabel, 0, 3, 1, 1);
-
         HistSizeSampleSpin = new QSpinBox(gridLayoutWidget_5);
         HistSizeSampleSpin->setObjectName("HistSizeSampleSpin");
 
@@ -299,6 +294,16 @@ public:
 
         HistGrid->addWidget(HistSizeUnitLabel, 0, 1, 1, 1);
 
+        HistSizeSampleUnitLabel = new QLabel(gridLayoutWidget_5);
+        HistSizeSampleUnitLabel->setObjectName("HistSizeSampleUnitLabel");
+
+        HistGrid->addWidget(HistSizeSampleUnitLabel, 0, 3, 1, 1);
+
+        HistSizeSpin = new QDoubleSpinBox(gridLayoutWidget_5);
+        HistSizeSpin->setObjectName("HistSizeSpin");
+
+        HistGrid->addWidget(HistSizeSpin, 0, 0, 1, 1);
+
         HistSizeSlider = new QSlider(gridLayoutWidget_5);
         HistSizeSlider->setObjectName("HistSizeSlider");
         HistSizeSlider->setOrientation(Qt::Horizontal);
@@ -307,18 +312,19 @@ public:
 
         SameChParamCheck = new QCheckBox(centralwidget);
         SameChParamCheck->setObjectName("SameChParamCheck");
-        SameChParamCheck->setGeometry(QRect(20, 170, 321, 24));
+        SameChParamCheck->setGeometry(QRect(20, 260, 321, 24));
         QFont font;
-        font.setPointSize(11);
+        font.setPointSize(10);
         SameChParamCheck->setFont(font);
         RatioGroupbox = new QGroupBox(centralwidget);
         RatioGroupbox->setObjectName("RatioGroupbox");
-        RatioGroupbox->setGeometry(QRect(20, 40, 321, 71));
+        RatioGroupbox->setGeometry(QRect(380, 30, 401, 68));
         gridLayoutWidget_6 = new QWidget(RatioGroupbox);
         gridLayoutWidget_6->setObjectName("gridLayoutWidget_6");
-        gridLayoutWidget_6->setGeometry(QRect(9, 30, 301, 41));
+        gridLayoutWidget_6->setGeometry(QRect(9, 30, 381, 31));
         RatioGrid = new QGridLayout(gridLayoutWidget_6);
         RatioGrid->setObjectName("RatioGrid");
+        RatioGrid->setVerticalSpacing(6);
         RatioGrid->setContentsMargins(0, 0, 0, 0);
         RatioLabel = new QLabel(gridLayoutWidget_6);
         RatioLabel->setObjectName("RatioLabel");
@@ -329,17 +335,34 @@ public:
         RatioSetButton->setObjectName("RatioSetButton");
         RatioSetButton->setIconSize(QSize(24, 24));
 
-        RatioGrid->addWidget(RatioSetButton, 0, 1, 1, 1);
+        RatioGrid->addWidget(RatioSetButton, 0, 2, 1, 1);
+
+        RatioValue = new QLabel(gridLayoutWidget_6);
+        RatioValue->setObjectName("RatioValue");
+
+        RatioGrid->addWidget(RatioValue, 0, 1, 1, 1);
 
         CHTabWidget = new QTabWidget(centralwidget);
         CHTabWidget->setObjectName("CHTabWidget");
-        CHTabWidget->setGeometry(QRect(20, 210, 321, 281));
+        CHTabWidget->setGeometry(QRect(20, 295, 321, 261));
         tab = new QWidget();
         tab->setObjectName("tab");
         CHTabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName("tab_2");
         CHTabWidget->addTab(tab_2, QString());
+        IPAddressGroupbox = new QGroupBox(centralwidget);
+        IPAddressGroupbox->setObjectName("IPAddressGroupbox");
+        IPAddressGroupbox->setGeometry(QRect(20, 30, 321, 131));
+        QFont font1;
+        font1.setPointSize(11);
+        IPAddressGroupbox->setFont(font1);
+        gridLayoutWidget_7 = new QWidget(IPAddressGroupbox);
+        gridLayoutWidget_7->setObjectName("gridLayoutWidget_7");
+        gridLayoutWidget_7->setGeometry(QRect(9, 30, 301, 91));
+        IPAddressGrid = new QGridLayout(gridLayoutWidget_7);
+        IPAddressGrid->setObjectName("IPAddressGrid");
+        IPAddressGrid->setContentsMargins(0, 0, 0, 0);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -350,6 +373,9 @@ public:
         MainWindow->setStatusBar(statusbar);
 
         retranslateUi(MainWindow);
+
+        CHTabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -368,14 +394,16 @@ public:
         BufferSizeSampleUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         BufferSizeUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         HistSizeGroupbox->setTitle(QCoreApplication::translate("MainWindow", "\320\224\320\273\320\270\320\275\320\260 \320\277\321\200\320\265\320\264\320\267\320\260\320\277\320\270\321\201\320\270", nullptr));
-        HistSizeSampleUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         HistSizeUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        HistSizeSampleUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         SameChParamCheck->setText(QCoreApplication::translate("MainWindow", "\320\276\320\264\320\270\320\275\320\260\320\272\320\276\320\262\321\213\320\265 \320\277\320\260\321\200\320\260\320\274\320\265\321\202\321\200\321\213 \320\262\321\201\320\265\321\205 \320\272\320\260\320\275\320\260\320\273\320\276\320\262", nullptr));
         RatioGroupbox->setTitle(QCoreApplication::translate("MainWindow", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 \320\264\320\265\320\273\320\265\320\275\320\270\321\217", nullptr));
-        RatioLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        RatioLabel->setText(QCoreApplication::translate("MainWindow", "k\342\202\201\342\202\202\342\202\203 = ", nullptr));
         RatioSetButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        RatioValue->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         CHTabWidget->setTabText(CHTabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         CHTabWidget->setTabText(CHTabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
+        IPAddressGroupbox->setTitle(QCoreApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \321\201\320\262\321\217\320\267\320\270 \321\201 \320\220\320\246\320\237", nullptr));
     } // retranslateUi
 
 };

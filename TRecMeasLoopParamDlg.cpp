@@ -34,12 +34,17 @@ CTRecMeasLoopParamDlg::CTRecMeasLoopParamDlg(QWidget *parent)
     ui->k3SpinBox->setMaximum(SpinMaxVal);
     ui->k3SpinBox->setSingleStep(0.1);
 
-    double k1 = pMainWindow->pADCParam_get()->CHParam_get()->at(0).k1_get();
+    vector<class CTRecADCChParam>* pADCChParam_vec =
+        pMainWindow->pADC_get()->ADCParam_get()->CHParam_get();
+
+    double k1 = pADCChParam_vec->at(0).k1_get();
     ui->k1SpinBox->setValue(k1);
-    double k2 = pMainWindow->pADCParam_get()->CHParam_get()->at(0).k2_get();
+    double k2 = pADCChParam_vec->at(0).k2_get();
     ui->k2SpinBox->setValue(k2);
-    double k3 = pMainWindow->pADCParam_get()->CHParam_get()->at(0).k3_get();
+    double k3 = pADCChParam_vec->at(0).k3_get();
     ui->k3SpinBox->setValue(k3);
+    double k123 = pADCChParam_vec->at(0).ratio_get();
+    ui->EqCoefValue->setNum(k123);
 }
 
 CTRecMeasLoopParamDlg::~CTRecMeasLoopParamDlg()
@@ -59,12 +64,12 @@ void CTRecMeasLoopParamDlg::on_OKButton_clicked()
     double k2 = ui->k2SpinBox->value();
     double k3 = ui->k3SpinBox->value();
 
-    for(auto& ch : *(pMainWindow->pADCParam_get()->CHParam_get()))
+    for(auto& ch : *(pMainWindow->pADC_get()->ADCParam_get()->CHParam_get()))
     {
         ch.k1k2k3_set(k1, k2, k3);
     }
 
-    close();
+    this->done(0);
 }
 
 
@@ -72,6 +77,30 @@ void CTRecMeasLoopParamDlg::on_OKButton_clicked()
 // ============================================= Кнопка отклонения изменения и закрытия окна
 void CTRecMeasLoopParamDlg::on_CancelButton_clicked()
 {
-    close();
+    this->done(1);
+}
+
+
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Регулирование значений коэффициентов
+void CTRecMeasLoopParamDlg::on_k1SpinBox_valueChanged(double arg1)
+{
+    double k123 = arg1 * ui->k2SpinBox->value() * ui->k3SpinBox->value();
+    ui->EqCoefValue->setNum(k123);
+}
+
+
+void CTRecMeasLoopParamDlg::on_k2SpinBox_valueChanged(double arg1)
+{
+    double k123 = ui->k1SpinBox->value() * arg1 * ui->k3SpinBox->value();
+    ui->EqCoefValue->setNum(k123);
+}
+
+
+void CTRecMeasLoopParamDlg::on_k3SpinBox_valueChanged(double arg1)
+{
+    double k123 = ui->k1SpinBox->value() * ui->k2SpinBox->value() * arg1;
+    ui->EqCoefValue->setNum(k123);
 }
 

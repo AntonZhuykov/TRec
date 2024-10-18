@@ -8,6 +8,7 @@
 
 #include <memory>
 #include "../../mainwindow.h"
+#include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
@@ -26,26 +27,27 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 namespace {
 struct qt_meta_stringdata_MainWindow_t {
-    uint offsetsAndSizes[38];
+    uint offsetsAndSizes[40];
     char stringdata0[11];
     char stringdata1[39];
     char stringdata2[1];
     char stringdata3[6];
     char stringdata4[33];
     char stringdata5[6];
-    char stringdata6[37];
+    char stringdata6[31];
     char stringdata7[5];
-    char stringdata8[31];
-    char stringdata9[29];
-    char stringdata10[20];
-    char stringdata11[29];
-    char stringdata12[31];
-    char stringdata13[35];
-    char stringdata14[29];
-    char stringdata15[28];
-    char stringdata16[8];
-    char stringdata17[26];
+    char stringdata8[29];
+    char stringdata9[20];
+    char stringdata10[29];
+    char stringdata11[31];
+    char stringdata12[35];
+    char stringdata13[29];
+    char stringdata14[28];
+    char stringdata15[8];
+    char stringdata16[26];
+    char stringdata17[24];
     char stringdata18[24];
+    char stringdata19[4];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
@@ -57,19 +59,20 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(51, 5),  // "index"
         QT_MOC_LITERAL(57, 32),  // "on_BufferSizeSlider_valueChanged"
         QT_MOC_LITERAL(90, 5),  // "value"
-        QT_MOC_LITERAL(96, 36),  // "on_BufferSizeSampleSpin_value..."
-        QT_MOC_LITERAL(133, 4),  // "arg1"
-        QT_MOC_LITERAL(138, 30),  // "on_BufferSizeSpin_valueChanged"
-        QT_MOC_LITERAL(169, 28),  // "on_CHSelectSpin_valueChanged"
-        QT_MOC_LITERAL(198, 19),  // "on_OKButton_clicked"
-        QT_MOC_LITERAL(218, 28),  // "on_HistSizeSpin_valueChanged"
-        QT_MOC_LITERAL(247, 30),  // "on_HistSizeSlider_valueChanged"
-        QT_MOC_LITERAL(278, 34),  // "on_HistSizeSampleSpin_valueCh..."
-        QT_MOC_LITERAL(313, 28),  // "on_manualStartButton_clicked"
-        QT_MOC_LITERAL(342, 27),  // "on_SameChParamCheck_toggled"
-        QT_MOC_LITERAL(370, 7),  // "checked"
-        QT_MOC_LITERAL(378, 25),  // "on_RatioSetButton_clicked"
-        QT_MOC_LITERAL(404, 23)   // "on_CancelButton_clicked"
+        QT_MOC_LITERAL(96, 30),  // "on_BufferSizeSpin_valueChanged"
+        QT_MOC_LITERAL(127, 4),  // "arg1"
+        QT_MOC_LITERAL(132, 28),  // "on_CHSelectSpin_valueChanged"
+        QT_MOC_LITERAL(161, 19),  // "on_OKButton_clicked"
+        QT_MOC_LITERAL(181, 28),  // "on_HistSizeSpin_valueChanged"
+        QT_MOC_LITERAL(210, 30),  // "on_HistSizeSlider_valueChanged"
+        QT_MOC_LITERAL(241, 34),  // "on_HistSizeSampleSpin_valueCh..."
+        QT_MOC_LITERAL(276, 28),  // "on_manualStartButton_clicked"
+        QT_MOC_LITERAL(305, 27),  // "on_SameChParamCheck_toggled"
+        QT_MOC_LITERAL(333, 7),  // "checked"
+        QT_MOC_LITERAL(341, 25),  // "on_RatioSetButton_clicked"
+        QT_MOC_LITERAL(367, 23),  // "on_CancelButton_clicked"
+        QT_MOC_LITERAL(391, 23),  // "on_MeasLoopParamChanged"
+        QT_MOC_LITERAL(415, 3)   // "res"
     },
     "MainWindow",
     "on_SampleRateCombo_currentIndexChanged",
@@ -77,9 +80,8 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "index",
     "on_BufferSizeSlider_valueChanged",
     "value",
-    "on_BufferSizeSampleSpin_valueChanged",
-    "arg1",
     "on_BufferSizeSpin_valueChanged",
+    "arg1",
     "on_CHSelectSpin_valueChanged",
     "on_OKButton_clicked",
     "on_HistSizeSpin_valueChanged",
@@ -89,7 +91,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "on_SameChParamCheck_toggled",
     "checked",
     "on_RatioSetButton_clicked",
-    "on_CancelButton_clicked"
+    "on_CancelButton_clicked",
+    "on_MeasLoopParamChanged",
+    "res"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -112,20 +116,19 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
        4,    1,   95,    2, 0x08,    3 /* Private */,
        6,    1,   98,    2, 0x08,    5 /* Private */,
        8,    1,  101,    2, 0x08,    7 /* Private */,
-       9,    1,  104,    2, 0x08,    9 /* Private */,
-      10,    0,  107,    2, 0x08,   11 /* Private */,
+       9,    0,  104,    2, 0x08,    9 /* Private */,
+      10,    1,  105,    2, 0x08,   10 /* Private */,
       11,    1,  108,    2, 0x08,   12 /* Private */,
       12,    1,  111,    2, 0x08,   14 /* Private */,
-      13,    1,  114,    2, 0x08,   16 /* Private */,
-      14,    0,  117,    2, 0x08,   18 /* Private */,
-      15,    1,  118,    2, 0x08,   19 /* Private */,
-      17,    0,  121,    2, 0x08,   21 /* Private */,
-      18,    0,  122,    2, 0x08,   22 /* Private */,
+      13,    0,  114,    2, 0x08,   16 /* Private */,
+      14,    1,  115,    2, 0x08,   17 /* Private */,
+      16,    0,  118,    2, 0x08,   19 /* Private */,
+      17,    0,  119,    2, 0x08,   20 /* Private */,
+      18,    1,  120,    2, 0x08,   21 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    5,
-    QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Double,    7,
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void,
@@ -133,9 +136,10 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   16,
+    QMetaType::Void, QMetaType::Bool,   15,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   19,
 
        0        // eod
 };
@@ -153,9 +157,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_BufferSizeSlider_valueChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_BufferSizeSampleSpin_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_BufferSizeSpin_valueChanged'
@@ -183,7 +184,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_RatioSetButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_CancelButton_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_MeasLoopParamChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
     nullptr
 } };
@@ -196,17 +200,17 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->on_SampleRateCombo_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 1: _t->on_BufferSizeSlider_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 2: _t->on_BufferSizeSampleSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 3: _t->on_BufferSizeSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 4: _t->on_CHSelectSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 5: _t->on_OKButton_clicked(); break;
-        case 6: _t->on_HistSizeSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 7: _t->on_HistSizeSlider_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->on_HistSizeSampleSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 9: _t->on_manualStartButton_clicked(); break;
-        case 10: _t->on_SameChParamCheck_toggled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 11: _t->on_RatioSetButton_clicked(); break;
-        case 12: _t->on_CancelButton_clicked(); break;
+        case 2: _t->on_BufferSizeSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 3: _t->on_CHSelectSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 4: _t->on_OKButton_clicked(); break;
+        case 5: _t->on_HistSizeSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 6: _t->on_HistSizeSlider_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 7: _t->on_HistSizeSampleSpin_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 8: _t->on_manualStartButton_clicked(); break;
+        case 9: _t->on_SameChParamCheck_toggled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 10: _t->on_RatioSetButton_clicked(); break;
+        case 11: _t->on_CancelButton_clicked(); break;
+        case 12: _t->on_MeasLoopParamChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
