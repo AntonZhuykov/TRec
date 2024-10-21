@@ -3,9 +3,13 @@
 
 #include "TRecADCParam.h"
 #include <QHostAddress>
+#include <QTcpSocket>
 
 
+inline constexpr const char* ADCIPAdressDefault = "10.0.2.200";
 inline constexpr int ADCPortDefault = 1024;
+inline constexpr const char* ADCConnectStatusLabels[] =
+    { "соединение не установлено", "соединения установлено"};
 
 
 
@@ -16,8 +20,17 @@ public:
     ~CTRecADC();
     CTRecADC& operator=(const CTRecADC& Obj);
 
-    CTRecADCParam* ADCParam_get() {return &m_ADCParam;}
+    void TcpSocket_set(QTcpSocket* pSocket) {m_pTcpSocket = pSocket;}
+    void IPAddress_set(const QHostAddress& IP) {m_IP = IP;}
+    void IPAddress_set(const QString& IPStr) {m_IP = QHostAddress(IPStr);}
+    void IPPort_set(const int& port) {m_Port = port;}
+    void ConnectStatus_set(const bool& status) {m_ConnectStatus = status;}
 
+    CTRecADCParam* ADCParam_get() {return &m_ADCParam;}
+    bool ConnectStatus_get() {return m_ConnectStatus;}
+
+    void ADCConnect();  // установка соединения с платой АЦП
+    void ADCDisconnect();
     void ADCInit(); // инициализация платы АЦП, включая физическое подключение АЦП к входам
     void ADCReset();// сброс настроек платы АЦП
     void ADCStart();// старт регистрации (отслеживания триггеров по каналам)
@@ -26,8 +39,10 @@ public:
 
 protected:
     CTRecADCParam m_ADCParam;
+    QTcpSocket* m_pTcpSocket;
     QHostAddress m_IP;
     int m_Port;
+    bool m_ConnectStatus;
 };
 
 #endif // TRECADC_H

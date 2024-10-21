@@ -20,7 +20,8 @@ public:
 
     virtual bool eventFilter(QObject* pObj, QEvent* event);
 
-    void IPAddress_set(const QHostAddress& IP);
+    void IPAddress_set(const QHostAddress& IP) {IPAddress_set(IP.toString());}
+    void IPAddress_set(const QString& IPStr);
     QString IPAddress_get();
 
 private slots:

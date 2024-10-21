@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "TRecFolderSelector.h"
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -9,6 +10,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowTitle("TRec");
+
+    // Сокет соединения с платой АЦП
+    connect(&m_TcpSocket, &QIODevice::readyRead, this, &MainWindow::ADCSocketRead);
+    connect(&m_TcpSocket, &QAbstractSocket::errorOccurred, this, &MainWindow::connectErrorDisplay);
+    connect(&m_TcpSocket, &QAbstractSocket::connected, this, &MainWindow:: connectSuccessDisplay);
+    connect(&m_TcpSocket, &QAbstractSocket::disconnected, this, &MainWindow:: disconnectSuccessDisplay);
+    m_ADC.TcpSocket_set(&m_TcpSocket);
 
     // Параметры кнопок
     ui->OKButton->setText("Применить");
@@ -31,19 +39,30 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalLayout->addWidget(ui->CancelButton);
     ui->horizontalLayout->addWidget(ui->OKButton);
 
-    // Пользовательский Widget ввода IP-адреса
+    // Пользовательский Widget ввода параметров соединения с платой АЦП
     QLabel* pIPAddressLabel = new QLabel("IP-адрес платы АЦП:");
     ui->IPAddressGrid->addWidget(pIPAddressLabel, 0, 0, 1, 3);
-    CTRecIPEditBox* pIPEdit = new CTRecIPEditBox(this);
-    ui->IPAddressGrid->addWidget(pIPEdit, 0, 3, 1, 2);
-    pIPEdit->setMaximumHeight(24);
+    m_pIPEdit = new CTRecIPEditBox(this);
+    ui->IPAddressGrid->addWidget(m_pIPEdit, 0, 3, 1, 2);
+    m_pIPEdit->setMaximumHeight(24);
+    m_pIPEdit->IPAddress_set(QString(ADCIPAdressDefault));
+
     QLabel* pPortLabel = new QLabel("Номер порта платы АЦП:");
     ui->IPAddressGrid->addWidget(pPortLabel, 1, 0, 1, 4);
-    QLineEdit* pPortEdit = new QLineEdit(this);
-    pPortEdit->setMaximumWidth(56);
-    ui->IPAddressGrid->addWidget(pPortEdit, 1, 4, 1, 1);
-    QPushButton* pConnectButton = new QPushButton("Соединить", this);
-    ui->IPAddressGrid->addWidget(pConnectButton, 2, 0, 1, 2);
+    m_pPortEdit = new QLineEdit(this);
+    m_pPortEdit->setMaximumWidth(56);
+    QString portStr;
+    m_pPortEdit->setText(portStr.setNum(ADCPortDefault));
+    ui->IPAddressGrid->addWidget(m_pPortEdit, 1, 4, 1, 1);
+
+    QIcon ConnectButtonIcon("..//..//Res//Connect2.svg");
+    m_pConnectButton = new QPushButton(ConnectButtonIcon,ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0], this);
+    m_pConnectButton->setIconSize(QSize(24,24));
+    ui->IPAddressGrid->addWidget(m_pConnectButton, 2, 0, 1, 2);
+    connect(m_pConnectButton, &QPushButton::clicked, this, &MainWindow::on_ADCConnectButton_clicked);
+
+    QLabel* pConnectStatus = new QLabel(ADCConnectStatusLabels[m_ADC.ConnectStatus_get()? 1:0]);
+    ui->IPAddressGrid->addWidget(pConnectStatus, 2, 2, 1, 3);
     //ui->IPAddressGrid->setVerticalSpacing(15);
 
     // Grid с элементами задания числа каналов
@@ -289,6 +308,25 @@ void MainWindow::histSizeMax_set()
 
 
 
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Кнопка установки соединения с АЦП
+void MainWindow::on_ADCConnectButton_clicked()
+{
+    m_pConnectButton->setEnabled(false);
+    if(m_ADC.ConnectStatus_get())   // соединение установлено, надо разорвать
+    {
+        m_ADC.ADCDisconnect();
+    }
+    else    // соединения нет, пробуем установить
+    {
+        m_ADC.IPAddress_set(m_pIPEdit->IPAddress_get());
+        m_ADC.IPPort_set(m_pPortEdit->text().toInt());
+        m_ADC.ADCConnect();
+    }
+}
+
+
+
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // ============================================= Кнопка однократного ручного запуска
 void MainWindow::on_manualStartButton_clicked()
@@ -381,6 +419,66 @@ void MainWindow::on_MeasLoopParamChanged(int res)
         for(auto& w : pChWidgets_vec)
             w->ChTriggerValkv_update();
     }
+}
+
+
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Считываем данные, поступившие от АЦП
+void MainWindow::ADCSocketRead()
+{
+
+}
+
+
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Обрабатываем успешное соединение с АЦП
+void MainWindow::connectSuccessDisplay()
+{
+    QMessageBox::information(this, "Соединение с платой АЦП",
+                             "Соединение с платой АЦП успешно установлено");
+
+    m_ADC.ConnectStatus_set(true);
+    m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
+    m_pConnectButton->setEnabled(true);
+}
+
+
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Обрабатываем ошибку соединения с АЦП
+void MainWindow::connectErrorDisplay(QAbstractSocket::SocketError socketError)
+{
+    switch(socketError)
+    {
+    case QAbstractSocket::RemoteHostClosedError:
+        break;
+    case QAbstractSocket::HostNotFoundError:
+        QMessageBox::warning(this, "Заголовок", "Хост не найден");
+        break;
+    case QAbstractSocket::ConnectionRefusedError:
+        QMessageBox::warning(this, "Заголовок", "Соединение прервано");
+        break;
+    default:
+        QMessageBox::warning(this, "Заголовок", tr("Произошла ошибка: %1.").arg(m_TcpSocket.errorString()));
+    }
+
+    m_pConnectButton->setEnabled(true);
+}
+
+
+
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Обрабатываем успешный разрыв связи с АЦП
+void MainWindow::disconnectSuccessDisplay()
+{
+    QMessageBox::information(this, "Соединение с платой АЦП",
+                             "Соединение с платой АЦП успешно разорвано");
+
+    m_ADC.ConnectStatus_set(false);
+    m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
+    m_pConnectButton->setEnabled(true);
 }
 
 

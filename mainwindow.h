@@ -9,10 +9,12 @@
 #include <QCheckBox>
 #include <QSlider>
 #include <QDoubleSpinBox>
+#include <QTcpSocket>
 #include <vector>
 
 
-
+inline constexpr const char* ADCConnectButtonLabels[] =
+    { "Соединить", "Разорвать"};
 
 
 QT_BEGIN_NAMESPACE
@@ -38,38 +40,34 @@ public:
 
 private slots:
     void on_SampleRateCombo_currentIndexChanged(int index);
-
     void on_BufferSizeSlider_valueChanged(int value);
-
     void on_BufferSizeSpin_valueChanged(double arg1);
-
     void on_CHSelectSpin_valueChanged(int arg1);
-
     void on_OKButton_clicked();
-
     void on_HistSizeSpin_valueChanged(double arg1);
-
     void on_HistSizeSlider_valueChanged(int value);
-
     void on_HistSizeSampleSpin_valueChanged(int arg1);
-
     void on_manualStartButton_clicked();
-
     void on_SameChParamCheck_toggled(bool checked);
-
     void on_RatioSetButton_clicked();
-
     void on_CancelButton_clicked();
-
     void on_MeasLoopParamChanged(int res);
+    void on_ADCConnectButton_clicked();
+    void ADCSocketRead();
+    void connectSuccessDisplay();
+    void connectErrorDisplay(QAbstractSocket::SocketError);
+    void disconnectSuccessDisplay();
 
 private:
     Ui::MainWindow *ui;
     //CTRecADCParam m_ADCParam;
     CTRecADC m_ADC;
     CTRecMeasLoopParamDlg* m_pMeasLoopParamDlg;
+    QPushButton* m_pConnectButton;
+    CTRecIPEditBox* m_pIPEdit;
+    QLineEdit* m_pPortEdit;
+    QTcpSocket m_TcpSocket;
 
-    // пользовательские переменные
     int histSizeSampleMax;
     vector<class CTRecADCChParamWidgets*> pChWidgets_vec;
 };

@@ -63,12 +63,17 @@ CTRecIPEditBox::~CTRecIPEditBox()
 
 
 
-void CTRecIPEditBox::IPAddress_set(const QHostAddress& IP)
+void CTRecIPEditBox::IPAddress_set(const QString& IPStr)
 {
-    QString IPStr = IP.toString();
-    QRegularExpression re("(\\d+)");
-
-
+    QRegularExpression re("(\\d+).(\\d+).(\\d+).(\\d+)");
+    QRegularExpressionMatch match = re.match(IPStr);
+    if(match.hasMatch())
+    {
+        for(auto i=0; i<AddressFieldsNum; i++)
+        {
+            m_pFields[i]->setText(match.captured(i+1));
+        }
+    }
 }
 
 
