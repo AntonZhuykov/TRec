@@ -13,8 +13,19 @@
 #include <vector>
 
 
+enum class TRecStatus { NOTCONNECTED,   // АЦП не подключен
+                        STANDBY,        // режим ожидания: АЦП подключен, измерения не выполняются
+                        ACQUISITION,    // режим измерений (ожидания срабатывания триггера)
+                        IMPORT,         // прием данных с платы АЦП
+                        };
+inline constexpr const char* StatusLabels[] =
+    {   "нет соединения с платой АЦП", "плата АЦП подключена, режим ожидания",
+        "режим измерений (ожидания срабатывания триггера)",
+        "прием данных с платы АЦП"
+    };
+
 inline constexpr const char* ADCConnectButtonLabels[] =
-    { "Соединить", "Разорвать"};
+    { "Соединить\nс АЦП", "Разорвать\nканал"};
 
 
 QT_BEGIN_NAMESPACE
@@ -32,6 +43,7 @@ public:
     ~MainWindow();
 
     // сетеры-гетеры
+    void status_set(TRecStatus status);
     CTRecADC* pADC_get() {return &m_ADC;}
 
     // пользовательские функции
@@ -58,12 +70,20 @@ private slots:
     void connectErrorDisplay(QAbstractSocket::SocketError);
     void disconnectSuccessDisplay();
 
+    void on_StartButton_clicked();
+
+    void on_StopButton_clicked();
+
 private:
     Ui::MainWindow *ui;
-    //CTRecADCParam m_ADCParam;
+    TRecStatus m_status;
     CTRecADC m_ADC;
+
+    QLabel* m_pStatusLabel;
     CTRecMeasLoopParamDlg* m_pMeasLoopParamDlg;
     QPushButton* m_pConnectButton;
+    QIcon m_ConnectButtonIcon;
+    QIcon m_DisconnectButtonIcon;
     CTRecIPEditBox* m_pIPEdit;
     QLineEdit* m_pPortEdit;
     QTcpSocket m_TcpSocket;

@@ -330,9 +330,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>630</x>
       <y>540</y>
-      <width>221</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -340,19 +340,6 @@
      <property name="spacing">
       <number>8</number>
      </property>
-     <item>
-      <widget class="QPushButton" name="CancelButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QPushButton" name="OKButton">
        <property name="text">
@@ -422,12 +409,12 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="manualStartButton">
+   <widget class="QPushButton" name="StartButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>630</x>
       <y>440</y>
-      <width>221</width>
+      <width>151</width>
       <height>51</height>
      </rect>
     </property>
@@ -675,7 +662,7 @@
       <x>20</x>
       <y>30</y>
       <width>321</width>
-      <height>131</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="font">
@@ -692,11 +679,30 @@
        <x>9</x>
        <y>30</y>
        <width>301</width>
-       <height>91</height>
+       <height>101</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="IPAddressGrid"/>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="StopButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>440</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>36</width>
+      <height>36</height>
+     </size>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

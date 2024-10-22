@@ -55,11 +55,13 @@ public:
         mainButtonLayout->setContentsMargins(0, 0, 0, 0);
         CancelButton = new QPushButton(horizontalLayoutWidget);
         CancelButton->setObjectName("CancelButton");
+        CancelButton->setIconSize(QSize(20, 20));
 
         mainButtonLayout->addWidget(CancelButton);
 
         OKButton = new QPushButton(horizontalLayoutWidget);
         OKButton->setObjectName("OKButton");
+        OKButton->setIconSize(QSize(20, 20));
 
         mainButtonLayout->addWidget(OKButton);
 

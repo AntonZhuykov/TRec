@@ -11,6 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowTitle("TRec");
 
+    // Статус программы
+    m_status = TRecStatus::NOTCONNECTED;
+    QRect windowRect = this->rect();
+    m_pStatusLabel = new QLabel(StatusLabels[static_cast<int>(m_status)], this);
+    m_pStatusLabel->setGeometry(20, windowRect.height()-25,
+                                400, 14);
+
     // Сокет соединения с платой АЦП
     connect(&m_TcpSocket, &QIODevice::readyRead, this, &MainWindow::ADCSocketRead);
     connect(&m_TcpSocket, &QAbstractSocket::errorOccurred, this, &MainWindow::connectErrorDisplay);
@@ -19,24 +26,27 @@ MainWindow::MainWindow(QWidget *parent)
     m_ADC.TcpSocket_set(&m_TcpSocket);
 
     // Параметры кнопок
-    ui->OKButton->setText("Применить");
-    QIcon OKButtonIcon("..//..//Res//Apply.svg");
-    ui->OKButton->setIcon(OKButtonIcon);
+    ui->OKButton->setText("Завершить");
+    //QIcon OKButtonIcon("..//..//Res//Apply.svg");
+    //ui->OKButton->setIcon(OKButtonIcon);
 
-    ui->CancelButton->setText("Отменить");
-    QIcon CancelButtonIcon("..//..//Res//Cancel.svg");
-    ui->CancelButton->setIcon(CancelButtonIcon);
+    // ui->manualStartButton->setText("Однократный запуск\nрегистрации");
+    // QIcon manualStartButtonIcon("..//..//Res//SingleStart.svg");
+    // ui->manualStartButton->setIcon(manualStartButtonIcon);
 
-    ui->manualStartButton->setText("Однократный запуск\nрегистрации");
-    QIcon manualStartButtonIcon("..//..//Res//SingleStart.svg");
-    ui->manualStartButton->setIcon(manualStartButtonIcon);
+    ui->StartButton->setText("Запуск\nрегистрации");
+    QIcon StartButtonIcon("..//..//Res//Start.svg");
+    ui->StartButton->setIcon(StartButtonIcon);
+
+    ui->StopButton->setText("");
+    QIcon StopButtonIcon("..//..//Res//Stop.svg");
+    ui->StopButton->setIcon(StopButtonIcon);
 
     ui->RatioSetButton->setText("Настроить");
     QIcon RatioSetButtonIcon("..//..//Res//Settings.svg");
     ui->RatioSetButton->setIcon(RatioSetButtonIcon);
 
     // Grid с кнопками внизу окна
-    ui->horizontalLayout->addWidget(ui->CancelButton);
     ui->horizontalLayout->addWidget(ui->OKButton);
 
     // Пользовательский Widget ввода параметров соединения с платой АЦП
@@ -55,14 +65,15 @@ MainWindow::MainWindow(QWidget *parent)
     m_pPortEdit->setText(portStr.setNum(ADCPortDefault));
     ui->IPAddressGrid->addWidget(m_pPortEdit, 1, 4, 1, 1);
 
-    QIcon ConnectButtonIcon("..//..//Res//Connect2.svg");
-    m_pConnectButton = new QPushButton(ConnectButtonIcon,ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0], this);
-    m_pConnectButton->setIconSize(QSize(24,24));
-    ui->IPAddressGrid->addWidget(m_pConnectButton, 2, 0, 1, 2);
+    m_ConnectButtonIcon = QIcon("..//..//Res//Connect2.svg");
+    m_DisconnectButtonIcon = QIcon("..//..//Res//Disconnect.svg");
+    m_pConnectButton = new QPushButton(m_ConnectButtonIcon,ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0], this);
+    m_pConnectButton->setIconSize(QSize(36,36));
+    ui->IPAddressGrid->addWidget(m_pConnectButton, 2, 0, 2, 2);
     connect(m_pConnectButton, &QPushButton::clicked, this, &MainWindow::on_ADCConnectButton_clicked);
 
     QLabel* pConnectStatus = new QLabel(ADCConnectStatusLabels[m_ADC.ConnectStatus_get()? 1:0]);
-    ui->IPAddressGrid->addWidget(pConnectStatus, 2, 2, 1, 3);
+    ui->IPAddressGrid->addWidget(pConnectStatus, 2, 2, 2, 3);
     //ui->IPAddressGrid->setVerticalSpacing(15);
 
     // Grid с элементами задания числа каналов
@@ -201,15 +212,56 @@ MainWindow::MainWindow(QWidget *parent)
     ui->HistSizeSampleSpin->setSingleStep(1000);
 
 
-
     auto folderSelector = new CTRecFolderSelector();
     ui->SaveFolderGrid->addWidget(folderSelector, 1, 0, 1, 1);
+
+
+    // Явно устанавливаем статус программы
+    status_set(TRecStatus::NOTCONNECTED);
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Изменение статуса программы
+void MainWindow::status_set(TRecStatus status)
+{
+    m_status = status;
+    m_pStatusLabel->setText(StatusLabels[static_cast<int>(m_status)]);
+
+    switch(m_status)
+    {
+    case TRecStatus::NOTCONNECTED:
+        m_ADC.ConnectStatus_set(false);
+        m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
+        m_pConnectButton->setIcon(m_ConnectButtonIcon);
+        m_pConnectButton->setEnabled(true);
+        ui->StartButton->setEnabled(false);
+        ui->StopButton->setEnabled(false);
+        break;
+    case TRecStatus::STANDBY:
+        m_ADC.ConnectStatus_set(true);
+        m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
+        m_pConnectButton->setEnabled(true);
+        m_pConnectButton->setIcon(m_DisconnectButtonIcon);
+        ui->StartButton->setEnabled(true);
+        ui->StopButton->setEnabled(false);
+        break;
+    case TRecStatus::ACQUISITION:
+        ui->StartButton->setEnabled(false);
+        ui->StopButton->setEnabled(true);
+        break;
+    case TRecStatus::IMPORT:
+        ui->StartButton->setEnabled(false);
+        ui->StopButton->setEnabled(false);
+        break;
+    }
 }
 
 
@@ -336,6 +388,27 @@ void MainWindow::on_manualStartButton_clicked()
 
 
 
+// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Кнопка запуска регистрации
+void MainWindow::on_StartButton_clicked()
+{
+    // Сброс настроек платы АЦП
+    m_ADC.ADCReset();
+    // Инициализация платы (настройка измерительных каналов)
+    m_ADC.ADCInit();
+}
+
+
+
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// ============================================= Кнопка останова регистрации
+void MainWindow::on_StopButton_clicked()
+{
+
+}
+
+
+
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // ============================================= Переключатель совпадения параметров каналов
 void MainWindow::on_SameChParamCheck_toggled(bool checked)
@@ -439,9 +512,7 @@ void MainWindow::connectSuccessDisplay()
     QMessageBox::information(this, "Соединение с платой АЦП",
                              "Соединение с платой АЦП успешно установлено");
 
-    m_ADC.ConnectStatus_set(true);
-    m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
-    m_pConnectButton->setEnabled(true);
+    status_set(TRecStatus::STANDBY);
 }
 
 
@@ -464,7 +535,7 @@ void MainWindow::connectErrorDisplay(QAbstractSocket::SocketError socketError)
         QMessageBox::warning(this, "Заголовок", tr("Произошла ошибка: %1.").arg(m_TcpSocket.errorString()));
     }
 
-    m_pConnectButton->setEnabled(true);
+    status_set(TRecStatus::NOTCONNECTED);
 }
 
 
@@ -476,9 +547,6 @@ void MainWindow::disconnectSuccessDisplay()
     QMessageBox::information(this, "Соединение с платой АЦП",
                              "Соединение с платой АЦП успешно разорвано");
 
-    m_ADC.ConnectStatus_set(false);
-    m_pConnectButton->setText(ADCConnectButtonLabels[m_ADC.ConnectStatus_get()? 1:0]);
-    m_pConnectButton->setEnabled(true);
+    status_set(TRecStatus::NOTCONNECTED);
 }
-
 

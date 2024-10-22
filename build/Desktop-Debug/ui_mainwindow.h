@@ -35,7 +35,6 @@ public:
     QWidget *centralwidget;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
-    QPushButton *CancelButton;
     QPushButton *OKButton;
     QWidget *gridLayoutWidget;
     QGridLayout *CHGrid;
@@ -46,7 +45,7 @@ public:
     QLabel *SampleRateLabel;
     QComboBox *SampleRateCombo;
     QLabel *SampleRateUnitLabel;
-    QPushButton *manualStartButton;
+    QPushButton *StartButton;
     QWidget *gridLayoutWidget_3;
     QGridLayout *SaveFolderGrid;
     QLabel *SaveFolderLabel;
@@ -79,6 +78,7 @@ public:
     QGroupBox *IPAddressGroupbox;
     QWidget *gridLayoutWidget_7;
     QGridLayout *IPAddressGrid;
+    QPushButton *StopButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -167,17 +167,11 @@ public:
         centralwidget->setObjectName("centralwidget");
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
-        horizontalLayoutWidget->setGeometry(QRect(560, 540, 221, 31));
+        horizontalLayoutWidget->setGeometry(QRect(630, 540, 151, 31));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setSpacing(8);
         horizontalLayout->setObjectName("horizontalLayout");
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        CancelButton = new QPushButton(horizontalLayoutWidget);
-        CancelButton->setObjectName("CancelButton");
-        CancelButton->setIconSize(QSize(20, 20));
-
-        horizontalLayout->addWidget(CancelButton);
-
         OKButton = new QPushButton(horizontalLayoutWidget);
         OKButton->setObjectName("OKButton");
         OKButton->setIconSize(QSize(20, 20));
@@ -222,10 +216,10 @@ public:
 
         CommonParamGrid->addWidget(SampleRateUnitLabel, 0, 4, 1, 1);
 
-        manualStartButton = new QPushButton(centralwidget);
-        manualStartButton->setObjectName("manualStartButton");
-        manualStartButton->setGeometry(QRect(560, 440, 221, 51));
-        manualStartButton->setIconSize(QSize(36, 36));
+        StartButton = new QPushButton(centralwidget);
+        StartButton->setObjectName("StartButton");
+        StartButton->setGeometry(QRect(630, 440, 151, 51));
+        StartButton->setIconSize(QSize(36, 36));
         gridLayoutWidget_3 = new QWidget(centralwidget);
         gridLayoutWidget_3->setObjectName("gridLayoutWidget_3");
         gridLayoutWidget_3->setGeometry(QRect(380, 360, 401, 51));
@@ -353,16 +347,20 @@ public:
         CHTabWidget->addTab(tab_2, QString());
         IPAddressGroupbox = new QGroupBox(centralwidget);
         IPAddressGroupbox->setObjectName("IPAddressGroupbox");
-        IPAddressGroupbox->setGeometry(QRect(20, 30, 321, 131));
+        IPAddressGroupbox->setGeometry(QRect(20, 30, 321, 141));
         QFont font1;
         font1.setPointSize(11);
         IPAddressGroupbox->setFont(font1);
         gridLayoutWidget_7 = new QWidget(IPAddressGroupbox);
         gridLayoutWidget_7->setObjectName("gridLayoutWidget_7");
-        gridLayoutWidget_7->setGeometry(QRect(9, 30, 301, 91));
+        gridLayoutWidget_7->setGeometry(QRect(9, 30, 301, 101));
         IPAddressGrid = new QGridLayout(gridLayoutWidget_7);
         IPAddressGrid->setObjectName("IPAddressGrid");
         IPAddressGrid->setContentsMargins(0, 0, 0, 0);
+        StopButton = new QPushButton(centralwidget);
+        StopButton->setObjectName("StopButton");
+        StopButton->setGeometry(QRect(560, 440, 51, 51));
+        StopButton->setIconSize(QSize(36, 36));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -383,12 +381,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        CancelButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         OKButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         CHSelectLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         SampleRateLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         SampleRateUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        manualStartButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        StartButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         SaveFolderLabel->setText(QCoreApplication::translate("MainWindow", "\320\237\321\203\321\202\321\214 \321\201\320\276\321\205\321\200\320\260\320\275\320\265\320\275\320\270\321\217 \320\276\321\201\321\206\320\270\320\273\320\273\320\276\320\263\321\200\320\260\320\274\320\274:", nullptr));
         BufferSizeGroupbox->setTitle(QCoreApplication::translate("MainWindow", "\320\224\320\273\320\270\320\275\320\260 \320\267\320\260\320\277\320\270\321\201\320\270", nullptr));
         BufferSizeSampleUnitLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
@@ -404,6 +401,7 @@ public:
         CHTabWidget->setTabText(CHTabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         CHTabWidget->setTabText(CHTabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
         IPAddressGroupbox->setTitle(QCoreApplication::translate("MainWindow", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \321\201\320\262\321\217\320\267\320\270 \321\201 \320\220\320\246\320\237", nullptr));
+        StopButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
     } // retranslateUi
 
 };

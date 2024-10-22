@@ -1,4 +1,6 @@
 #include "TRecADC.h"
+#include <cstdlib>
+
 
 CTRecADC::CTRecADC()
 {
@@ -40,4 +42,22 @@ void CTRecADC::ADCConnect()
 void CTRecADC::ADCDisconnect()
 {
     m_pTcpSocket->disconnectFromHost();
+}
+
+
+void CTRecADC::ADCReset()
+{
+    m_pTcpSocket->write(ADCResetCommand);
+}
+
+
+void CTRecADC::ADCInit()
+{
+    for(auto& ch : *(m_ADCParam.CHParam_get()))
+    {
+        auto tmp = div(ch.ind_get(), CHPerADCNum);
+        QString ADCNum;
+        QString command = TriggerLevelCommandPreamble + ADCNum.setNum(tmp.quot + 1);
+        m_pTcpSocket->write(command.toUtf8());
+    }
 }

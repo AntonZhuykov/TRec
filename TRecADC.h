@@ -8,8 +8,11 @@
 
 inline constexpr const char* ADCIPAdressDefault = "10.0.2.200";
 inline constexpr int ADCPortDefault = 1024;
+inline constexpr const char* ADCResetCommand = "#RESET";
+inline constexpr const char* TriggerLevelCommandPreamble = "#LEVEL 0 ";
+
 inline constexpr const char* ADCConnectStatusLabels[] =
-    { "соединение не установлено", "соединения установлено"};
+    { "соединение с АЦП\nотсутствует", "соединения с АЦП\nустановлено"};
 
 
 

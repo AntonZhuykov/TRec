@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #eccad0;
+      }
+
+      .cls-3 {
+        stroke: #e30b17;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <g id="_Запуск" data-name="Запуск">
+    <rect class="cls-1" width="48" height="48"/>
+    <g>
+      <path class="cls-2" d="M43.513,23c.953.55.953,1.45,0,2L8.607,45.155c-.953.55-1.732.1-1.732-1V3.845c0-1.1.779-1.55,1.732-1l34.906,20.155Z"/>
+      <path class="cls-3" d="M43.513,23c.953.55.953,1.45,0,2L8.607,45.155c-.953.55-1.732.1-1.732-1V3.845c0-1.1.779-1.55,1.732-1l34.906,20.155Z"/>
+    </g>
+  </g>
+</svg>

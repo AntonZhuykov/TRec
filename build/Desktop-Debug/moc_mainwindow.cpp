@@ -27,7 +27,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 namespace {
 struct qt_meta_stringdata_MainWindow_t {
-    uint offsetsAndSizes[52];
+    uint offsetsAndSizes[56];
     char stringdata0[11];
     char stringdata1[39];
     char stringdata2[1];
@@ -54,6 +54,8 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata23[20];
     char stringdata24[29];
     char stringdata25[25];
+    char stringdata26[23];
+    char stringdata27[22];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
@@ -84,7 +86,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(461, 21),  // "connectSuccessDisplay"
         QT_MOC_LITERAL(483, 19),  // "connectErrorDisplay"
         QT_MOC_LITERAL(503, 28),  // "QAbstractSocket::SocketError"
-        QT_MOC_LITERAL(532, 24)   // "disconnectSuccessDisplay"
+        QT_MOC_LITERAL(532, 24),  // "disconnectSuccessDisplay"
+        QT_MOC_LITERAL(557, 22),  // "on_StartButton_clicked"
+        QT_MOC_LITERAL(580, 21)   // "on_StopButton_clicked"
     },
     "MainWindow",
     "on_SampleRateCombo_currentIndexChanged",
@@ -111,7 +115,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "connectSuccessDisplay",
     "connectErrorDisplay",
     "QAbstractSocket::SocketError",
-    "disconnectSuccessDisplay"
+    "disconnectSuccessDisplay",
+    "on_StartButton_clicked",
+    "on_StopButton_clicked"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -122,7 +128,7 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -130,24 +136,26 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,  122,    2, 0x08,    1 /* Private */,
-       4,    1,  125,    2, 0x08,    3 /* Private */,
-       6,    1,  128,    2, 0x08,    5 /* Private */,
-       8,    1,  131,    2, 0x08,    7 /* Private */,
-       9,    0,  134,    2, 0x08,    9 /* Private */,
-      10,    1,  135,    2, 0x08,   10 /* Private */,
-      11,    1,  138,    2, 0x08,   12 /* Private */,
-      12,    1,  141,    2, 0x08,   14 /* Private */,
-      13,    0,  144,    2, 0x08,   16 /* Private */,
-      14,    1,  145,    2, 0x08,   17 /* Private */,
-      16,    0,  148,    2, 0x08,   19 /* Private */,
-      17,    0,  149,    2, 0x08,   20 /* Private */,
-      18,    1,  150,    2, 0x08,   21 /* Private */,
-      20,    0,  153,    2, 0x08,   23 /* Private */,
-      21,    0,  154,    2, 0x08,   24 /* Private */,
-      22,    0,  155,    2, 0x08,   25 /* Private */,
-      23,    1,  156,    2, 0x08,   26 /* Private */,
-      25,    0,  159,    2, 0x08,   28 /* Private */,
+       1,    1,  134,    2, 0x08,    1 /* Private */,
+       4,    1,  137,    2, 0x08,    3 /* Private */,
+       6,    1,  140,    2, 0x08,    5 /* Private */,
+       8,    1,  143,    2, 0x08,    7 /* Private */,
+       9,    0,  146,    2, 0x08,    9 /* Private */,
+      10,    1,  147,    2, 0x08,   10 /* Private */,
+      11,    1,  150,    2, 0x08,   12 /* Private */,
+      12,    1,  153,    2, 0x08,   14 /* Private */,
+      13,    0,  156,    2, 0x08,   16 /* Private */,
+      14,    1,  157,    2, 0x08,   17 /* Private */,
+      16,    0,  160,    2, 0x08,   19 /* Private */,
+      17,    0,  161,    2, 0x08,   20 /* Private */,
+      18,    1,  162,    2, 0x08,   21 /* Private */,
+      20,    0,  165,    2, 0x08,   23 /* Private */,
+      21,    0,  166,    2, 0x08,   24 /* Private */,
+      22,    0,  167,    2, 0x08,   25 /* Private */,
+      23,    1,  168,    2, 0x08,   26 /* Private */,
+      25,    0,  171,    2, 0x08,   28 /* Private */,
+      26,    0,  172,    2, 0x08,   29 /* Private */,
+      27,    0,  173,    2, 0x08,   30 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -167,6 +175,8 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 24,    2,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -226,6 +236,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QAbstractSocket::SocketError, std::false_type>,
         // method 'disconnectSuccessDisplay'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_StartButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_StopButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -255,6 +269,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 15: _t->connectSuccessDisplay(); break;
         case 16: _t->connectErrorDisplay((*reinterpret_cast< std::add_pointer_t<QAbstractSocket::SocketError>>(_a[1]))); break;
         case 17: _t->disconnectSuccessDisplay(); break;
+        case 18: _t->on_StartButton_clicked(); break;
+        case 19: _t->on_StopButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -290,13 +306,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 20;
     }
     return _id;
 }

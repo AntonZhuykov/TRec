@@ -13,6 +13,7 @@ inline constexpr int BufferSizeSampleDefault = 625000;
 inline constexpr int HistSizeSampleMin = 0;
 inline constexpr double HistSizeSampleMaxCoef = 0.9;
 inline constexpr int CHTotalNum = 8;
+inline constexpr int CHPerADCNum = 4;   // 4-канальные АЦП (на плату таких два)
 inline constexpr int bitnessDefault = 12;
 
 
